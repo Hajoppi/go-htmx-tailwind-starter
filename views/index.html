@@ -1,0 +1,44 @@
+{{ block "index" . }}
+  <!doctype html>
+  <html>
+    <head>
+      <title>HTMX demo</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <script
+        src="https://unpkg.com/htmx.org@2.0.2"
+        integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ"
+        crossorigin="anonymous"
+      ></script>
+      <link href="public/css/generated.css" rel="stylesheet" />
+    </head>
+    <body class="container mx-auto">
+      <h1 class="text-2xl">Go, HTMX, Tailwind starter</h1>
+      {{ template "count-component" . }}
+    </body>
+  </html>
+{{ end }}
+
+{{ block "count-component" . }}
+  <div class="p-4 flex gap-4 items-center">
+    <button
+      hx-get="/counter/decrease"
+      hx-target="#counter"
+      class="bg-red-500 border text-white p-4 rounded"
+    >
+      -
+    </button>
+    {{ template "count" . }}
+    <button
+      hx-get="/counter/increase"
+      hx-target="#counter"
+      class="bg-green-500 border text-white p-4 rounded"
+    >
+      +
+    </button>
+  </div>
+{{ end }}
+
+{{ block "count" . }}
+  <p id="counter">Count: {{ .Count }}</p>
+{{ end }}
